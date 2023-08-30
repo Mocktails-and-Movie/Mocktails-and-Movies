@@ -1,1 +1,2 @@
-console.log('This is great stuff!')
+console.log('This is great')
+console.log('This also is great')
