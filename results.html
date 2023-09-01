@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results Page</title>
+</head>
+<body>
+    <header>
+
+        <nav></nav>
+
+    </header>
+    <section>
+        <div id="randomMovie"></div>
+        <h2></h2>
+        <p></p>
+        <script>
+              function displayRandomMovie(movie) {
+      
+      window.location.replace("./results.html")
+      const randomMovieDiv = document.getElementById('randomMovie');
+      randomMovieDiv.innerHTML = ''; 
+      const movieElement = document.createElement('div');
+      movieTitle = document.createElement("h2")
+      movieOverview = document.createElement("p")
+        movieElement.innerHTML = `
+            <h2>${movie.title}</h2>
+            <p>${movie.overview}</p>
+            <p>Release Date: ${movie.release_date}</p>
+            <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title} Poster">
+            `;}
+        </script>
+    
+    </section>
+    <script src="./script.js"></script>
+</body>
+</html>

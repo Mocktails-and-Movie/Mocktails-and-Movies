@@ -16,22 +16,21 @@
       rel="stylesheet" />
   </head>
   <body>
-    <header></header>
-    <div class="select is-multiple">
-      <select multiple size="8">
-        <option value="Argentina">Argentina</option>
-        <option value="Bolivia">Bolivia</option>
-        <option value="Brazil">Brazil</option>
-        <option value="Chile">Chile</option>
-        <option value="Colombia">Colombia</option>
-        <option value="Ecuador">Ecuador</option>
-        <option value="Guyana">Guyana</option>
-        <option value="Paraguay">Paraguay</option>
-        <option value="Peru">Peru</option>
-        <option value="Suriname">Suriname</option>
-        <option value="Uruguay">Uruguay</option>
-        <option value="Venezuela">Venezuela</option>
-      </select>
+    <header>
+      <h1>Movies and Mocktails and Martini's!</h1>
+    </header>
+    <label for="genre">Select a Movie Genre:</label>
+    <select id="genre">
+        <option value="28">Action</option>
+        <option value="35">Comedy</option>
+        <option value="18">Drama</option>
+        <option value="12">Adventure</option>
+    </select>
+    <button id="loadRandomMovie">Load Random Movie</button>
+    
+      <section>
+        <h2 id="Favorites">Favorite Results Displayed Here!</h2>
+      </section>
     </div>
 
     <script src="./script.js"></script>
