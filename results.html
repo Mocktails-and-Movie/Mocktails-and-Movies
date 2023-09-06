@@ -1,38 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results Page</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movies and Mocktails</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet" /> -->
+  </head>
+  <body>
     <header>
-
-        <nav></nav>
-
+      <nav></nav>
     </header>
-    <section>
-        <div id="randomMovie"></div>
-        <h2></h2>
-        <p></p>
-        <script>
-              function displayRandomMovie(movie) {
-      
-      window.location.replace("./results.html")
-      const randomMovieDiv = document.getElementById('randomMovie');
-      randomMovieDiv.innerHTML = ''; 
-      const movieElement = document.createElement('div');
-      movieTitle = document.createElement("h2")
-      movieOverview = document.createElement("p")
-        movieElement.innerHTML = `
-            <h2>${movie.title}</h2>
-            <p>${movie.overview}</p>
-            <p>Release Date: ${movie.release_date}</p>
-            <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title} Poster">
-            `;}
-        </script>
-    
-    </section>
-    <script src="./script.js"></script>
-</body>
+
+    <div id="randomMovie"></div>
+
+    <script src="./results.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  </body>
 </html>

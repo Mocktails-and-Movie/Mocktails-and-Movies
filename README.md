@@ -35,3 +35,9 @@ Psedo-Code:
    create two buttons: 
    First button - reinitalizes the movie match and dirnk
    Second button - sends user back to the home page and to view favorites.
+
+
+
+References: 
+
+1. https://stackoverflow.com/questions/24092076/greyscale-background-image-but-not-content
