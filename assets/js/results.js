@@ -25,7 +25,7 @@ function printFromLocal() {
     var movieImageEl = document.createElement("img");
     movieTitleEl.textContent = movie.title;
     movieOverviewEl.textContent = movie.overview;
-    movieDate.textContent = movie.release_date;
+    movieDate.textContent ='Release date:' + ' ' + dayjs(movie.release_date).format('MMMM DD YYYY');
     console.log(movieDate);
     movieImageEl.src = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
     movieImageEl.alt = movie.title + " poster";
