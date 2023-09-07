@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movies and Mocktails</title>
-    <link rel="stylesheet" href="./reset.css" />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
@@ -16,27 +16,31 @@
       rel="stylesheet" /> -->
   </head>
   <body>
-    <header>
-      <nav>
-        <button>Save to favour</button>
-        <button>Rest</button>
-      </nav>
-    </header>
+    <nav class="custom-navbar" role="navigation" aria-label="main navigation">
+      <button class="newMovie">Choose a new movie</button>
+      <div class="navbar-brand">
+        <a href="./homepage.html">
+          <img src="./assets/css/images/popcorn.png" width="90" height="140" />
+        </a>
+      </div>
+      <button>Save to favorites ❤️</button>
+    </nav>
 
     <div id="randomMovie"></div>
-    <section>
-      <button class="drink">drinks</button>
-      <h2>Your Pairings</h2>
-      <a href="#"><img src="" alt=""></a>
-      <p>Name</p>
-      <p>Ingredient</p>
-      <p>instructions</p>
-      <a href="#"><img src="" alt=""></a>
-      <p>Ingredient</p>
-      <p>instructions</p>
+
+    <div class="drink-display">
+      <button class="drunkButton">Get your drink options</button>
+      <h2 class="drink-options">Your Pairings</h2>
+    </div>
+    <section class="drink-wrapper">
+      <!-- <div class="drinks-container">
+        <div class="drink"></div>
+      </div>
+      <div class="drinks-container"></div>
+      <div class="drink"></div> -->
     </section>
-    
-    <script src="./results.js"></script>
+
+    <script src="./assets/js/results.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
   </body>
 </html>

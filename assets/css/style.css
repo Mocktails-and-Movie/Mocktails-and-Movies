@@ -1,0 +1,205 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
+* {
+  color: rgb(239, 239, 239);
+  box-sizing: ;
+}
+
+body {
+  background-color: black;
+}
+
+header {
+  font-size: 4rem;
+  text-align: right;
+  font-family: "Bebas Neue", sans-serif;
+  margin: 1.5rem 0.75rem;
+  position: relative;
+}
+
+
+/* .hero {
+  width: 100vw;
+  height: 100vh;
+} */
+
+/* .hero {
+  position: relative;
+  overflow: hidden;
+} */
+
+.hero {
+  content: "";
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-image: url("./images/drinksmovies_header.jpeg");
+  background-size: cover;
+  background-position: 100% 10%;
+  filter: grayscale(87%) contrast(150%);
+  border: 15px solid black;
+  border-radius: 25px;
+}
+
+
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 36px;
+  margin: 15px;
+  padding: 15px;
+}
+
+.form-container label {
+  color: yellow;
+}
+
+.form-container button {
+  font-family: "Bebas Neue", sans-serif;
+  color: black;
+  width: 10rem;
+  padding: 15px 5px;
+  margin: 30px auto;
+  font-size: 26px;
+  border-radius: 10px;
+}
+
+.custom-navbar {
+  background-color: gray;
+  display: flex;
+  justify-content: space-around;
+}
+
+.custom-navbar img {
+  filter: grayscale(75%);
+}
+
+.custom-navbar button {
+  color: black;
+}
+
+.drink-display {
+  display: flex;
+  flex-direction: column;
+}
+
+.drunkButton {
+  margin: auto;
+  color: black;
+  padding: 10px 15px;
+}
+
+.drink-options {
+  margin: 15px auto;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.drink-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.drinks-container {
+  text-align: center;
+  border: 2px solid orange;
+  width: 60%;
+  margin: 10px auto;
+  /* display: flex;  */
+}
+
+.drinks-container h3 {
+  padding: 20px;
+  margin: 10px;
+}
+
+.drink img {
+  width: 300px;
+  height: 300px;
+  margin: 25px auto;
+  border: 2px solid orange;
+}
+
+.drink h4 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 40px;
+}
+
+.drink ul {
+  text-align: left;
+  margin: 10px 15px;
+  padding: 10px 20px;
+}
+.drink li {
+  list-style: circle;
+}
+
+.drink p {
+  text-align: left;
+  margin: 10px;
+  padding: 10px;
+}
+
+#genre {
+  position: relative;
+  width: 25%;
+  margin: 10px auto;
+  padding: 15px 10px;
+}
+
+#randomMovie {
+  font-family: "Bebas Neue", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin: 10px 15px;
+  padding: 15px;
+  text-align: center;
+}
+
+#randomMovie h2 {
+  font-size: 36px;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: bold;
+  margin: auto;
+}
+
+#randomMovie img {
+  width: 380px;
+  height: 500px;
+  margin: 25px auto;
+}
+
+
+
+
+
+@media screen and (min-width: 768px) {
+  .drinks-container {
+    width: 40%;
+    margin: 10px auto;
+  }
+
+  .hero {
+    content: "";
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-image: url("./images/drinksmovies_header.jpeg");
+    background-position: 35% 10%;
+    filter: grayscale(87%) contrast(150%);
+    border: 15px solid black;
+    border-radius: 25px;
+  }
+
+  #randomMovie img {
+    width: 580px;
+    height: 700px;
+    margin: 25px auto;
+  }
+} /* small laptop */
