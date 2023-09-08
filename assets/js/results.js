@@ -4,8 +4,6 @@ var cocktailByLetterEndpoint =
   "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=";
 var drinkButton = document.querySelector(".drunkButton");
 var apiKey = "875ec0f5dd7c483c223ff8cc9a55ef3e";
-
-
 function readFromLocalStorage() {
   var storedMovie = localStorage.getItem("selectedMovie");
   if (storedMovie) {
@@ -25,7 +23,7 @@ function printFromLocal() {
     var movieImageEl = document.createElement("img");
     movieTitleEl.textContent = movie.title;
     movieOverviewEl.textContent = movie.overview;
-    movieDate.textContent ='Release date:' + ' ' + dayjs(movie.release_date).format('MMMM DD YYYY');
+    movieDate.textContent = movie.release_date;
     console.log(movieDate);
     movieImageEl.src = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
     movieImageEl.alt = movie.title + " poster";
@@ -37,27 +35,52 @@ function printFromLocal() {
     console.log("No movie found in localStorage");
   }
 }
-function fetchAndDisplayRandomDrink(category, letter) {
+function fetchAndDisplayRandomDrinks(letter) {
   fetch(cocktailByLetterEndpoint + letter)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
+      var alcoholicDrinks = [];
+      var nonAlcoholicDrinks = [];
       var drinks = data.drinks;
       if (drinks && drinks.length > 0) {
-        var randomIndex = Math.floor(Math.random() * drinks.length);
-        var randomDrink = drinks[randomIndex];
-        displayDrink(randomDrink, category);
+        drinks.forEach(function (drink) {
+          if (drink.strAlcoholic === "Alcoholic") {
+            alcoholicDrinks.push(drink);
+          } else {
+            nonAlcoholicDrinks.push(drink);
+          }
+        });
+      }
+      // Display an alcoholic drink
+      if (alcoholicDrinks.length > 0) {
+        var randomAlcoholicIndex = Math.floor(Math.random() * alcoholicDrinks.length);
+        var randomAlcoholicDrink = alcoholicDrinks[randomAlcoholicIndex];
+        displayDrink(randomAlcoholicDrink, "Alcoholic");
+      }
+      // Display a non-alcoholic drink, or a similar alcoholic one if not found
+      if (nonAlcoholicDrinks.length > 0) {
+        var randomNonAlcoholicIndex = Math.floor(Math.random() * nonAlcoholicDrinks.length);
+        var randomNonAlcoholicDrink = nonAlcoholicDrinks[randomNonAlcoholicIndex];
+        displayDrink(randomNonAlcoholicDrink, "Non_Alcoholic");
+      } else if (alcoholicDrinks.length > 0) {
+        var randomAlcoholicIndex = Math.floor(Math.random() * alcoholicDrinks.length);
+        var randomAlcoholicDrink = alcoholicDrinks[randomAlcoholicIndex];
+        displayDrink(randomAlcoholicDrink, "Non_Alcoholic");
       } else {
-        console.log(
-          `No matching ${category} drinks found for the letter ${letter}`
-        );
+        console.log("No matching drinks found for the letter " + letter);
       }
     })
     .catch(function (error) {
       console.error("Error fetching data: " + error);
     });
 }
+drinkButton.addEventListener("click", function () {
+  var movie = readFromLocalStorage();
+  var firstLetter = movie.title.charAt(0).toLowerCase();
+  fetchAndDisplayRandomDrinks(firstLetter);
+});
 function displayDrink(drink, category) {
   var drinksContainer = document.createElement("div");
   drinksContainer.className = "drinks-container";
@@ -87,8 +110,6 @@ function displayDrink(drink, category) {
       break;
     }
   }
-
-
   var instructionsTitle = document.createElement("p");
   instructionsTitle.textContent = "Instructions:";
   var instructions = document.createElement("p");
@@ -104,19 +125,14 @@ function displayDrink(drink, category) {
   drinkDisplay.appendChild(drinksContainer);
 }
 printFromLocal();
-
 drinkButton.addEventListener("click", function () {
   var movie = readFromLocalStorage();
   var firstLetter = movie.title.charAt(0).toLowerCase();
   fetchAndDisplayRandomDrink("Non_Alcoholic", firstLetter);
   fetchAndDisplayRandomDrink("Alcoholic", firstLetter);
 });
-
-
 var newMovieButton = document.querySelector('.newMovie')
-
 function newMovie (){
-
   fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${selectedGenre}`
   )

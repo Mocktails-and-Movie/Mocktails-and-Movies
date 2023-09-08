@@ -19,61 +19,35 @@
     <section class="hero">
       <div class="hero-body">
         <header>
-          <h1>Movies 🎬 </h1>
-          <h1>Mocktails 🍹 </h1>
+          <h1>Movies 🎬</h1>
+          <h1>Mocktails 🍹</h1>
           <h1>and Martinis 🍸</h1>
         </header>
       </div>
     </section>
-        <!-- <form> -->
-        <div class="form-container">
-          <label for="genre">Select a Movie Genre:</label>
-          <select id="genre">
-            <option value="28">Action</option>
-            <option value="35">Comedy</option>
-            <option value="18">Drama</option>
-            <option value="12">Adventure</option>
-          </select>
-          <button id="loadRandomMovie">Let's go to the movies!</button>
-        </div>
-        <!-- <div id="randomMovie"></div> -->
-        <!-- 
-    <div class="dropdown is-active">
-      <div class="dropdown-trigger">
-        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu2">
-          <span>Let's go to the movies!</span>
-          <span class="icon is-small">
-            <i class="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
-        </button>
-      </div>
-      <div class="dropdown-menu" id="dropdown-menu2" role="menu">
-        <div class="dropdown-content">
-          <div class="dropdown-item">
-           <div value="28">Action</div>
-          </div>
-          <hr class="dropdown-divider">
-          <div class="dropdown-item">
-            <div value="35">Comedy</div>
-          </div>
-          <hr class="dropdown-divider">
-          <div class="dropdown-item">
-            <div value="18">Drama</div>
-          </div>
-          <hr class="dropdown-divider">
-          <div class="dropdown-item">
-            <div value="12">Adventure</div>
-          </div>
-        </div>
-      </div>
-    </div> -->
+    <!-- <form> -->
+    <div class="form-container is-rounded">
+      <label for="genre">Select a Movie Genre:</label>
+      <select class="is-focused" id="genre">
+        <option>Select a genre</option>
+        <option value="28">Action</option>
+        <option value="35">Comedy</option>
+        <option value="18">Drama</option>
+        <option value="12">Adventure</option>
+      </select>
+      <button id="loadRandomMovie">Let's go to the movies!</button>
+    </div>
+    <div id="randomMovie"></div>
+    <section>
+      <h2 id="favorites">Favorite Results Displayed Here!</h2>
+    </section>
+    <footer class="footer">
+      <h6>
+        This product uses the TMDB API but is not endorsed or certified by TMDB.
+      </h6>
+      <img src="./assets/css/images/movieAPIlogo.svg" alt="logo for API" />
+    </footer>
 
-        <!-- </form> -->
-
-        <section>
-          <h2 id="favorites">Favorite Results Displayed Here!</h2>
-        </section>
-  
     <script src="./assets/js/homepage.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
   </body>
