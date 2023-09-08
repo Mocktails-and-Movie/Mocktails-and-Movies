@@ -12,10 +12,11 @@ function handleClick(event) {
 
   var genreSelect = document.getElementById("genre");
   var selectedGenre = genreSelect.value;
-
+  var selectedGenreValue = genreSelect.options[genreSelect.selectedIndex].getAttribute("value");
   if (!selectedGenre) {
     window.alert("Please select a genre");
-    //change this to a pop-up.
+  } else {
+    localStorage.setItem("selectedGenreValue", selectedGenreValue);
   }
 
   fetch(
