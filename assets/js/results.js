@@ -16,6 +16,7 @@ function readFromLocalStorage() {
 function printFromLocal() {
   var movie = readFromLocalStorage();
   if (movie) {
+    // movieDetails();
     var randomMovieDiv = document.getElementById("randomMovie");
     var movieTitleEl = document.createElement("h2");
     var movieDate = document.createElement("p");
@@ -23,14 +24,16 @@ function printFromLocal() {
     var movieImageEl = document.createElement("img");
     movieTitleEl.textContent = movie.title;
     movieOverviewEl.textContent = movie.overview;
-    movieDate.textContent = movie.release_date;
-    console.log(movieDate);
+    movieDate.textContent =
+      "Release Date: " + "" + dayjs(movie.release_date).format("MMMM DD, YYYY");
+
     movieImageEl.src = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
     movieImageEl.alt = movie.title + " poster";
     randomMovieDiv.appendChild(movieTitleEl);
     randomMovieDiv.appendChild(movieDate);
-    randomMovieDiv.appendChild(movieOverviewEl);
+
     randomMovieDiv.appendChild(movieImageEl);
+    randomMovieDiv.appendChild(movieOverviewEl);
   } else {
     console.log("No movie found in localStorage");
   }
@@ -53,19 +56,28 @@ function fetchAndDisplayRandomDrinks(letter) {
           }
         });
       }
+      var drinkDisplay = document.querySelector(".drink-wrapper");
+      drinkDisplay.innerHTML = "";
       // Display an alcoholic drink
       if (alcoholicDrinks.length > 0) {
-        var randomAlcoholicIndex = Math.floor(Math.random() * alcoholicDrinks.length);
+        var randomAlcoholicIndex = Math.floor(
+          Math.random() * alcoholicDrinks.length
+        );
         var randomAlcoholicDrink = alcoholicDrinks[randomAlcoholicIndex];
         displayDrink(randomAlcoholicDrink, "Alcoholic");
       }
       // Display a non-alcoholic drink, or a similar alcoholic one if not found
       if (nonAlcoholicDrinks.length > 0) {
-        var randomNonAlcoholicIndex = Math.floor(Math.random() * nonAlcoholicDrinks.length);
-        var randomNonAlcoholicDrink = nonAlcoholicDrinks[randomNonAlcoholicIndex];
+        var randomNonAlcoholicIndex = Math.floor(
+          Math.random() * nonAlcoholicDrinks.length
+        );
+        var randomNonAlcoholicDrink =
+          nonAlcoholicDrinks[randomNonAlcoholicIndex];
         displayDrink(randomNonAlcoholicDrink, "Non_Alcoholic");
       } else if (alcoholicDrinks.length > 0) {
-        var randomAlcoholicIndex = Math.floor(Math.random() * alcoholicDrinks.length);
+        var randomAlcoholicIndex = Math.floor(
+          Math.random() * alcoholicDrinks.length
+        );
         var randomAlcoholicDrink = alcoholicDrinks[randomAlcoholicIndex];
         displayDrink(randomAlcoholicDrink, "Non_Alcoholic");
       } else {
@@ -122,28 +134,108 @@ function displayDrink(drink, category) {
   drinkElement.appendChild(instructions);
   drinksContainer.appendChild(drinkElement);
   var drinkDisplay = document.querySelector(".drink-wrapper");
+
   drinkDisplay.appendChild(drinksContainer);
 }
 printFromLocal();
 drinkButton.addEventListener("click", function () {
   var movie = readFromLocalStorage();
   var firstLetter = movie.title.charAt(0).toLowerCase();
-  fetchAndDisplayRandomDrink("Non_Alcoholic", firstLetter);
-  fetchAndDisplayRandomDrink("Alcoholic", firstLetter);
+  // fetchAndDisplayRandomDrink("Non_Alcoholic", firstLetter);
+  // fetchAndDisplayRandomDrink("Alcoholic", firstLetter);
 });
-var newMovieButton = document.querySelector('.newMovie')
-function newMovie (){
-  fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${selectedGenre}`
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      var randomIndex = Math.floor(Math.random() * data.results.length);
-      var selectedMovie = data.results[randomIndex];
-      localStorage.setItem("selectedMovie", JSON.stringify(selectedMovie));
-    })
-    .catch((error) => console.error("Error fetching movies:", error));
-    readFromLocalStorage();
-    printFromLocal();
+var newMovieButton = document.querySelector(".newMovie");
+// function newMovie() {
+//   fetch(
+//     `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${selectedGenre}`
+//   )
+//     .then((response) => response.json())
+//     .then((data) => {
+//       var randomIndex = Math.floor(Math.random() * data.results.length);
+//       var selectedMovie = data.results[randomIndex];
+//       localStorage.setItem("selectedMovie", JSON.stringify(selectedMovie));
+//     })
+//     .catch((error) => console.error("Error fetching movies:", error));
+//   readFromLocalStorage();
+//   printFromLocal();
+// }
+
+function getMovieId() {
+  var movie = readFromLocalStorage();
+  var movieId = movie.id;
+  if (movie) {
+    return movieId;
+  }
 }
-newMovieButton.addEventListener('click', newMovie);
+
+var getMovieId = getMovieId();
+var movieIdString = String(getMovieId);
+console.log(movieIdString);
+
+var baseMovieUrl = "https://api.themoviedb.org/3/movie/";
+var movieDetailFetch = baseMovieUrl + movieIdString + "?api_key=" + apiKey;
+
+function init() {
+  fetch(movieDetailFetch).then(function (response) {
+    console.log("response", response);
+    if (response.ok) {
+      response.json().then(function (movieDetails) {
+        console.log("DATA:", movieDetails);
+        displayMovieDetails(movieDetails);
+      });
+    } else {
+      alert("Error, please try again");
+    }
+  });
+}
+
+function displayMovieDetails(movieDetails) {
+  var randomMovieDiv = document.getElementById("randomMovie");
+  var runTimeEl = document.createElement("p");
+  runTimeEl.textContent =
+    "Movie Length: " + "" + movieDetails.runtime + " " + " minutes";
+  var runTimePlacement = randomMovieDiv.children[2];
+  randomMovieDiv.insertBefore(runTimeEl, runTimePlacement);
+
+  var tagLineEl = document.createElement("h4");
+  tagLineEl.setAttribute(
+    "style",
+    "color:orange; font-size:36px; font-style:italic;"
+  );
+  tagLineEl.textContent = movieDetails.tagline;
+  var tagLinePlacement = randomMovieDiv.children[4];
+  randomMovieDiv.insertBefore(tagLineEl, tagLinePlacement);
+
+  var ratingEl = document.createElement("p");
+  ratingEl.textContent =
+    "Movie Rating by voters: " +
+    movieDetails.vote_average.toFixed(1) +
+    " out of 10";
+  console.log(ratingEl);
+  ratingEl.setAttribute("style", " font-style:italic;");
+  ratingElPlacement = randomMovieDiv.children[3];
+  randomMovieDiv.insertBefore(ratingEl, ratingElPlacement);
+}
+
+init();
+
+// function newMovieDisplay() {
+//   var selectedGenreValue = localStorage.getItem("selectedGenreValue");
+//   console.log(selectedGenreValue);
+//   fetch(
+//     `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${selectedGenreValue}`
+//   )
+//     .then((response) => response.json())
+//     .then((data) => {
+//       var randomIndex = Math.floor(Math.random() * data.results.length);
+//       var selectedMovie = data.results[randomIndex];
+//       localStorage.setItem("selectedMovie", JSON.stringify(selectedMovie));
+//     })
+//     .catch((error) => console.error("Error fetching movies:", error));
+//   var randomMovie = document.getElementById("randomMovie");
+//   randomMovie.innerHTML = "";
+//   readFromLocalStorage();
+//   printFromLocal();
+// }
+
+// newMovieButton.addEventListener("click", newMovieDisplay);
