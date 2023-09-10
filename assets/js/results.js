@@ -16,7 +16,6 @@ function readFromLocalStorage() {
 function printFromLocal() {
   var movie = readFromLocalStorage();
   if (movie) {
-    // movieDetails();
     var randomMovieDiv = document.getElementById("randomMovie");
     var movieTitleEl = document.createElement("h2");
     var movieDate = document.createElement("p");
@@ -26,12 +25,10 @@ function printFromLocal() {
     movieOverviewEl.textContent = movie.overview;
     movieDate.textContent =
       "Release Date: " + "" + dayjs(movie.release_date).format("MMMM DD, YYYY");
-
     movieImageEl.src = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
     movieImageEl.alt = movie.title + " poster";
     randomMovieDiv.appendChild(movieTitleEl);
     randomMovieDiv.appendChild(movieDate);
-
     randomMovieDiv.appendChild(movieImageEl);
     randomMovieDiv.appendChild(movieOverviewEl);
   } else {
@@ -44,6 +41,8 @@ function fetchAndDisplayRandomDrinks(letter) {
       return response.json();
     })
     .then(function (data) {
+      console.log("DATA:", data);
+
       var alcoholicDrinks = [];
       var nonAlcoholicDrinks = [];
       var drinks = data.drinks;
@@ -56,8 +55,8 @@ function fetchAndDisplayRandomDrinks(letter) {
           }
         });
       }
-      var drinkDisplay = document.querySelector(".drink-wrapper");
-      drinkDisplay.innerHTML = "";
+      // var drinkDisplay = document.querySelector(".drink-wrapper");
+      // drinkDisplay.innerHTML = "";
       // Display an alcoholic drink
       if (alcoholicDrinks.length > 0) {
         var randomAlcoholicIndex = Math.floor(
@@ -87,56 +86,40 @@ function fetchAndDisplayRandomDrinks(letter) {
     .catch(function (error) {
       console.error("Error fetching data: " + error);
     });
+  // var drinkDisplay = document.querySelector(".drink-wrapper");
+  // drinkDisplay.innerHTML = "";
 }
 drinkButton.addEventListener("click", function () {
   var movie = readFromLocalStorage();
   var firstLetter = movie.title.charAt(0).toLowerCase();
   fetchAndDisplayRandomDrinks(firstLetter);
 });
+
 function displayDrink(drink, category) {
   var drinksContainer = document.createElement("div");
+
   drinksContainer.className = "drinks-container";
-  // var drinksContainer = document.querySelector('.drinks-container')
+
   var drinksTitle = document.createElement("h3");
   drinksTitle.textContent = category;
   drinksContainer.appendChild(drinksTitle);
   var drinkElement = document.createElement("div");
   drinkElement.className = "drink";
-  // var drinkElement = document.querySelector('.drink')
   var drinkName = document.createElement("h4");
   drinkName.textContent = drink.strDrink;
   var drinkImage = document.createElement("img");
   drinkImage.src = drink.strDrinkThumb;
   drinkImage.alt = drink.strDrink;
-  var ingredientsTitle = document.createElement("p");
-  ingredientsTitle.textContent = "Ingredients:";
-  var ingredientsList = document.createElement("ul");
-  for (var i = 1; i <= 15; i++) {
-    var ingredient = drink["strIngredient" + i];
-    var measure = drink["strMeasure" + i];
-    if (ingredient && ingredient.trim() !== "") {
-      var listItem = document.createElement("li");
-      listItem.textContent = `${measure ? measure + " " : ""}${ingredient}`;
-      ingredientsList.appendChild(listItem);
-    } else {
-      break;
-    }
-  }
-  var instructionsTitle = document.createElement("p");
-  instructionsTitle.textContent = "Instructions:";
-  var instructions = document.createElement("p");
-  instructions.textContent = drink.strInstructions;
+  drinkImage.addEventListener("click", function () {
+    openModal(drink);
+  });
   drinkElement.appendChild(drinkName);
   drinkElement.appendChild(drinkImage);
-  drinkElement.appendChild(ingredientsTitle);
-  drinkElement.appendChild(ingredientsList);
-  drinkElement.appendChild(instructionsTitle);
-  drinkElement.appendChild(instructions);
   drinksContainer.appendChild(drinkElement);
   var drinkDisplay = document.querySelector(".drink-wrapper");
-
   drinkDisplay.appendChild(drinksContainer);
 }
+
 printFromLocal();
 drinkButton.addEventListener("click", function () {
   var movie = readFromLocalStorage();
@@ -144,7 +127,7 @@ drinkButton.addEventListener("click", function () {
   // fetchAndDisplayRandomDrink("Non_Alcoholic", firstLetter);
   // fetchAndDisplayRandomDrink("Alcoholic", firstLetter);
 });
-var newMovieButton = document.querySelector(".newMovie");
+// var newMovieButton = document.querySelector(".newMovie");
 // function newMovie() {
 //   fetch(
 //     `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${selectedGenre}`
@@ -218,6 +201,29 @@ function displayMovieDetails(movieDetails) {
 }
 
 init();
+
+function openModal(drink) {
+  var modal = document.getElementById("drinkModal");
+  var title = document.getElementById("drinkModalTitle");
+  var content = document.getElementById("drinkModalContent");
+  title.textContent = drink.strDrink;
+  content.innerHTML = `
+    <h4>Ingredients:</h4>
+    <ul>
+      <li>${drink.strIngredient1} - ${drink.strMeasure1}</li>
+      <li>${drink.strIngredient2} - ${drink.strMeasure2}</li>
+      <!-- Add more ingredients if needed -->
+    </ul>
+    <h4>Instructions:</h4>
+    <p>${drink.strInstructions}</p>
+  `;
+  modal.classList.add("is-active");
+}
+
+function closeModal() {
+  var modal = document.getElementById("drinkModal");
+  modal.classList.remove("is-active");
+}
 
 // function newMovieDisplay() {
 //   var selectedGenreValue = localStorage.getItem("selectedGenreValue");
