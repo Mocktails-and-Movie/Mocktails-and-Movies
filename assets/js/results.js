@@ -84,52 +84,34 @@ drinkButton.addEventListener("click", function () {
 function displayDrink(drink, category) {
   var drinksContainer = document.createElement("div");
   drinksContainer.className = "drinks-container";
-  // var drinksContainer = document.querySelector('.drinks-container')
   var drinksTitle = document.createElement("h3");
   drinksTitle.textContent = category;
   drinksContainer.appendChild(drinksTitle);
+
   var drinkElement = document.createElement("div");
   drinkElement.className = "drink";
-  // var drinkElement = document.querySelector('.drink')
   var drinkName = document.createElement("h4");
   drinkName.textContent = drink.strDrink;
   var drinkImage = document.createElement("img");
   drinkImage.src = drink.strDrinkThumb;
   drinkImage.alt = drink.strDrink;
-  var ingredientsTitle = document.createElement("p");
-  ingredientsTitle.textContent = "Ingredients:";
-  var ingredientsList = document.createElement("ul");
-  for (var i = 1; i <= 15; i++) {
-    var ingredient = drink["strIngredient" + i];
-    var measure = drink["strMeasure" + i];
-    if (ingredient && ingredient.trim() !== "") {
-      var listItem = document.createElement("li");
-      listItem.textContent = `${measure ? measure + " " : ""}${ingredient}`;
-      ingredientsList.appendChild(listItem);
-    } else {
-      break;
-    }
-  }
-  var instructionsTitle = document.createElement("p");
-  instructionsTitle.textContent = "Instructions:";
-  var instructions = document.createElement("p");
-  instructions.textContent = drink.strInstructions;
+
+  drinkImage.addEventListener("click", function () {
+    openModal(drink);
+  });
+
   drinkElement.appendChild(drinkName);
   drinkElement.appendChild(drinkImage);
-  drinkElement.appendChild(ingredientsTitle);
-  drinkElement.appendChild(ingredientsList);
-  drinkElement.appendChild(instructionsTitle);
-  drinkElement.appendChild(instructions);
   drinksContainer.appendChild(drinkElement);
+
   var drinkDisplay = document.querySelector(".drink-wrapper");
   drinkDisplay.appendChild(drinksContainer);
 }
+
 printFromLocal();
 drinkButton.addEventListener("click", function () {
   var movie = readFromLocalStorage();
   var firstLetter = movie.title.charAt(0).toLowerCase();
-  fetchAndDisplayRandomDrink("Non_Alcoholic", firstLetter);
-  fetchAndDisplayRandomDrink("Alcoholic", firstLetter);
 });
 var newMovieButton = document.querySelector('.newMovie')
 function newMovie (){
@@ -147,3 +129,28 @@ function newMovie (){
     printFromLocal();
 }
 newMovieButton.addEventListener('click', newMovie);
+
+function openModal(drink) {
+  var modal = document.getElementById("drinkModal");
+  var title = document.getElementById("drinkModalTitle");
+  var content = document.getElementById("drinkModalContent");
+
+  title.textContent = drink.strDrink;
+  content.innerHTML = `
+    <h4>Ingredients:</h4>
+    <ul>
+      <li>${drink.strIngredient1} - ${drink.strMeasure1}</li>
+      <li>${drink.strIngredient2} - ${drink.strMeasure2}</li>
+      <!-- Add more ingredients if needed -->
+    </ul>
+    <h4>Instructions:</h4>
+    <p>${drink.strInstructions}</p>
+  `;
+
+  modal.classList.add("is-active");
+}
+
+function closeModal() {
+  var modal = document.getElementById("drinkModal");
+  modal.classList.remove("is-active");
+}

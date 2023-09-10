@@ -1,54 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies and Mocktails</title>
-    <link rel="stylesheet" href="./assets/css/reset.css" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
-      rel="stylesheet" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+<body>
     <section class="hero">
-      <div class="hero-body">
-        <header>
-          <h1>Movies 🎬</h1>
-          <h1>Mocktails 🍹</h1>
-          <h1>and Martinis 🍸</h1>
-        </header>
-      </div>
+        <div class="hero-body">
+            <header>
+                <h1>Movies 🎬</h1>
+                <h1>Mocktails 🍹</h1>
+                <h1>and Martinis 🍸</h1>
+            </header>
+        </div>
     </section>
-    <!-- <form> -->
     <div class="form-container is-rounded">
-      <label for="genre">Select a Movie Genre:</label>
-      <select class="is-focused" id="genre">
-        <option>Select a genre</option>
-        <option value="28">Action</option>
-        <option value="35">Comedy</option>
-        <option value="18">Drama</option>
-        <option value="12">Adventure</option>
-      </select>
-      <button id="loadRandomMovie">Let's go to the movies!</button>
+        <label for="genre">Select a Movie Genre:</label>
+        <select class="is-focused" id="genre">
+            <option>Select a genre</option>
+            <option value="28">Action</option>
+            <option value="35">Comedy</option>
+            <option value="18">Drama</option>
+            <option value="12">Adventure</option>
+        </select>
+        <button id="loadRandomMovie">Let's go to the movies!</button>
     </div>
     <div id="randomMovie"></div>
     <section>
-      <h2 id="favorites">Favorite Results Displayed Here!</h2>
+        <h2 id="favorites">Favorite Results Displayed Here!</h2>
     </section>
     <footer class="footer">
-      <h6>
-        This product uses the TMDB API but is not endorsed or certified by TMDB.
-      </h6>
-      <img src="./assets/css/images/movieAPIlogo.svg" alt="logo for API" />
+        <h6>
+            This product uses the TMDB API but is not endorsed or certified by TMDB.
+        </h6>
+        <img src="./assets/css/images/movieAPIlogo.svg" alt="logo for API">
     </footer>
 
     <script src="./assets/js/homepage.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-  </body>
+</body>
 </html>
+

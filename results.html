@@ -27,7 +27,7 @@
           <img src="./assets/css/images/popcorn.png" width="90" height="140" />
         </a>
       </div>
-      <button>Save to favorites ❤️</button>
+      <button id="saveFavorites">Save to favorites ❤️</button>
     </nav>
 
     <div id="randomMovie"></div>
@@ -37,6 +37,19 @@
       <h2 class="drink-options">Your Pairings</h2>
     </div>
     <section class="drink-wrapper">
+      <div class="modal" id="drinkModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title" id="drinkModalTitle"></p>
+            <button class="delete" aria-label="close" onclick="closeModal()"></button>
+          </header>
+          <section class="modal-card-body" id="drinkModalContent">
+            <!-- Ingredients and Recipe will be displayed here -->
+          </section>
+        </div>
+      </div>
+      
 
     </section>
 

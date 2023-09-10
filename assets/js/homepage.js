@@ -5,6 +5,7 @@ var apiKey = "875ec0f5dd7c483c223ff8cc9a55ef3e";
 var movieButton = document.querySelector("#loadRandomMovie");
 var randomMovieDiv = document.getElementById("randomMovie");
 
+// Event listener for the "Let's go to the movies!" button
 movieButton.addEventListener("click", handleClick);
 
 function handleClick(event) {
@@ -15,7 +16,7 @@ function handleClick(event) {
 
   if (!selectedGenre) {
     window.alert("Please select a genre");
-    //change this to a pop-up.
+    // Change this to a pop-up or other error handling method.
   }
 
   fetch(
@@ -32,76 +33,39 @@ function handleClick(event) {
     .catch((error) => console.error("Error fetching movies:", error));
 }
 
-// function readFromLocalStorage() {
-//   var storedMovie = localStorage.getItem("selectedMovie");
-//   if (storedMovie) {
-//     storedMovie = JSON.parse(storedMovie);
-//   } else {
-//     storedMovie = [];
-//   }
-//   return storedMovie;
-// }
-
-// function printFromLocal() {
-//   // Redirect to the results page
-//   window.location.href = "./results.html";
-//   var movie = readFromLocalStorage();
-//   var movieTitleEl = document.createElement("h2");
-//   var movieOverviewEl = document.createElement("p");
-//   var movieImageEl = document.createElement("img");
-
-//   randomMovieDiv.textContent = movie.title;
-//   movieTitleEl.textContent = movie.overview;
-//   movieOverviewEl.textContent = dayjs(movie.release_date).format(
-//     "MMMM DD, YYYY"
-//   );
-//   movieImageEl.src = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
-//   movieImageEl.alt = movie.title + " poster";
-
-//   randomMovieDiv.appendChild(movieTitleEl);
-
-//   randomMovieDiv.appendChild(movieOverviewEl);
-
-//   randomMovieDiv.appendChild(movieImageEl);
-// }
-
-// printFromLocal();
-
-// function displayMovie() {
-//   var storedMovie = localStorage.getItem("selectedMovie");
-
-//   if (storedMovie) {
-//     var movie = JSON.parse(storedMovie);
-
-//     var movieTitleEl = document.createElement("h2");
-//     var movieOverviewEl = document.createElement("p");
-//     var movieImageEl = document.createElement("img");
-
-//     randomMovieDiv.textContent = movie.title;
-//     movieTitleEl.textContent = movie.overview;
-//     movieOverviewEl.textContent = dayjs(movie.release_date).format(
-//       "MMMM DD, YYYY"
-//     );
-//     movieImageEl.src = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
-//     movieImageEl.alt = movie.title + " poster";
-
-//     randomMovieDiv.appendChild(movieTitleEl);
-
-//     randomMovieDiv.appendChild(movieOverviewEl);
-
-//     randomMovieDiv.appendChild(movieImageEl);
-//   } else {
-//     console.log("No movie found in local storage.");
-//   }
-// }
-
-fetch(drinkData).then(function (response) {
-  console.log("response", response);
-  if (response.ok) {
-    response.json().then(function (drinkData) {
-      console.log("DATA:", drinkData);
-    });
+// Event listener for saving a movie to favorites
+var saveFavoritesButton = document.querySelector("#saveFavorites");
+saveFavoritesButton.addEventListener("click", function () {
+  var selectedMovie = JSON.parse(localStorage.getItem("selectedMovie"));
+  if (selectedMovie) {
+    var favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    favorites.push(selectedMovie);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    alert("Movie added to favorites!");
   } else {
-    alert("Error, please try again");
+    console.log("No selected movie found in localStorage");
   }
 });
+
+// Function to fetch and display drink data
+function fetchAndDisplayDrinkData() {
+  fetch(drinkData)
+    .then(function (response) {
+      console.log("response", response);
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Error fetching data");
+      }
+    })
+    .then(function (drinkData) {
+      console.log("DATA:", drinkData);
+    })
+    .catch(function (error) {
+      console.error("Error:", error);
+      alert("Error, please try again");
+    });
+}
+
+// Call the function to fetch and display drink data
+fetchAndDisplayDrinkData();
