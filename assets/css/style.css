@@ -6,7 +6,8 @@
 }
 
 body {
-  background-color: black;
+  background-image: linear-gradient(rgb(0, 0, 0), rgb(50, 45, 18));
+
 }
 
 header {
@@ -17,19 +18,48 @@ header {
   position: relative;
 }
 
-/* .hero {
-  width: 100vw;
-  height: 100vh;
-} */
+.delete-button {
+  color: black;
+display: block;
+margin: 20px auto;
+padding: 10px 5px; 
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+background-color: rgb(255, 255, 108); 
+border-radius: 5px;
 
-/* .hero {
-  position: relative;
-  overflow: hidden;
-} */
-/* .modalButton {
-  height: 30px; 
-  width: 30px; 
-} */
+}
+
+
+.delete-button:hover {
+background-color: rgb(250, 250, 245); 
+}
+
+.drunkButton{
+  padding: 10px; 
+  margin: 10px; 
+  background-color: rgb(225, 215, 144);
+  font-size: 16px;
+  font-family: "Bebas Neue", sans-serif;
+  border-radius: 20px;
+}
+
+h2 {
+  text-align: center;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.drunkButton:hover{
+
+  background-color: rgb(49, 48, 38);
+
+}
+
+
+.drunkButton:active{
+font-style: italic;
+  background-color: gray; 
+  color: white; 
+}
 
 .dropdown-menu {
   display: none;
@@ -64,6 +94,13 @@ header {
   padding: 15px;
 }
 
+.drink-options {
+  font-size: 24px; 
+  font-family: "Bebas Neue", sans-serif;
+  color: orange;
+padding: 25px;
+}
+
 .form-container label {
   color: yellow;
 }
@@ -79,7 +116,7 @@ header {
 }
 
 .custom-navbar {
-  background-color: gray;
+background-image: linear-gradient(rgb(45, 41, 34), gray);
   display: flex;
   justify-content: space-around;
 }
@@ -90,6 +127,13 @@ header {
 
 .custom-navbar button {
   color: black;
+  border-radius: 30px;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.custom-navbar button:hover {
+  background-color: orange;
+  color: white; 
 }
 
 .drink-display {
@@ -97,10 +141,25 @@ header {
   flex-direction: column;
 }
 
+.drink img:hover {
+  box-shadow: 0 0 15px 25px rgba(255, 199, 31, 0.5);
+}
+
+
 .drunkButton {
-  margin: auto;
+  margin: 25px auto 10px;
   color: black;
   padding: 10px 15px;
+
+}
+.genreList {
+  display: flex; 
+  margin: 15px auto 5px; 
+  padding: 5px; 
+  font-family: "Bebas Neue", sans-serif;
+  width: 50%; 
+  justify-content: space-evenly;
+  font-style: italic;
 }
 
 .drink-options {
@@ -153,35 +212,21 @@ header {
   padding: 10px;
 }
 
-#genre {
-  position: relative;
-  width: 25%;
-  margin: 10px auto;
-  padding: 15px 10px;
+.navbar-brand img:hover {
+  border: 3px solid orange;
+  background-color: beige;
+  filter: grayscale(0%);
+  transform: rotate(1deg);
 }
 
-#randomMovie {
-  font-family: "Bebas Neue", sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  margin: 10px 15px;
-  padding: 15px;
+.modal-card {
+  background-color: rgb(185, 140, 56); 
+}
+
+.displayFavoriteMessage {
   text-align: center;
 }
 
-#randomMovie h2 {
-  font-size: 36px;
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: bold;
-  margin: auto;
-}
-
-#randomMovie img {
-  width: 380px;
-  height: 500px;
-  margin: 25px auto;
-}
 
 .footer {
   display: flex;
@@ -199,6 +244,93 @@ header {
   width: 5%;
   height: 5%;
 }
+
+.modal-card-title {
+  text-align: center;
+}
+
+.modal-card-body {
+  border: 3px solid orange; 
+  border-radius: 50px;
+}
+
+.modal-card-body h4 {
+  color: black;
+  font-weight: bolder;
+  padding: 5px;
+  margin: 5px; 
+
+}
+
+.modal-card-body li {
+  color: black;
+}
+
+
+.modal-card-body p {
+  color: black;
+}
+
+#favorites {
+  display:flex; 
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+
+#favorites img {
+  width: 180px;
+    height: 250px;
+    margin: 4px; 
+}
+
+#genre {
+  position: relative;
+  width: 25%;
+  margin: 10px auto;
+  padding: 15px 10px;
+  color: black;
+  text-align: center;
+  background-color: lightgray;
+}
+
+#genre:hover {
+  background-color: lightyellow;
+}
+
+#randomMovie {
+  font-family: "Bebas Neue", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin: 10px 15px;
+  padding: 15px;
+  text-align: center;
+}
+
+#loadRandomMovie:hover {
+  background-color: lightyellow;
+}
+
+#loadRandomMovie:active {
+  font-style: italic;
+}
+
+#randomMovie h2 {
+  font-size: 42px;
+  font-family: "Bebas Neue", "Franklin Gothic Medium", "Arial Narrow", Arial,
+    sans-serif;
+  font-weight: bold;
+  margin: auto;
+  color: rgb(216, 199, 165);
+}
+
+#randomMovie img {
+  width: 380px;
+  height: 500px;
+  margin: 25px auto;
+}
+
 
 @media screen and (min-width: 768px) {
   .drinks-container {
@@ -219,9 +351,15 @@ header {
     border-radius: 25px;
   }
 
+  #randomMovie {
+    display: flex; 
+  }
+
+
   #randomMovie img {
     width: 580px;
     height: 700px;
-    margin: 25px auto;
   }
-} /* small laptop */
+
+  }
+}

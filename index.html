@@ -29,18 +29,28 @@
     <div class="form-container is-rounded">
       <label for="genre">Select a Movie Genre:</label>
       <select class="is-focused" id="genre">
-        <option>Select a genre</option>
+        <option value="0">Select a genre</option>
         <option value="28">Action</option>
-        <option value="35">Comedy</option>
-        <option value="18">Drama</option>
         <option value="12">Adventure</option>
+        <option value="16">Animation</option>
+        <option value="35">Comedy</option>
+        <option value="80">Crime</option>
+        <option value="99">Documentary</option>
+        <option value="18">Drama</option>
+        <option value="14">Fantasy</option>
+        <option value="27">Horror</option>
+        <option value="9648">Mystery</option>
+        <option value="10749">Romance</option>
+        <option value="878">Science Fiction</option>
+        <option value="53">Thriller</option>
+        <option value="37">Western</option>
       </select>
       <button id="loadRandomMovie">Let's go to the movies!</button>
     </div>
     <div id="randomMovie"></div>
-    <section>
-      <h2 id="favorites">Favorite Results Displayed Here!</h2>
-    </section>
+    <h2>Your favorite results!</h2>
+    <section id="favorites"></section>
+    <button class="delete-button">Delete your favorites</button>
     <footer class="footer">
       <h6>
         This product uses the TMDB API but is not endorsed or certified by TMDB.
