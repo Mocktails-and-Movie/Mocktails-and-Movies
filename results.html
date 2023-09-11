@@ -21,20 +21,19 @@
   </head>
   <body>
     <nav class="custom-navbar" role="navigation" aria-label="main navigation">
-      <button class="newMovie">Choose a new movie</button>
       <div class="navbar-brand">
         <a href="./index.html">
           <img src="./assets/css/images/popcorn.png" width="90" height="140" />
         </a>
       </div>
-      <button>Save to favorites ❤️</button>
+      <button class="favorite-button">Save to favorites ❤️</button>
     </nav>
-
+    <div class="displayFavoriteMessage"></div>
     <div id="randomMovie"></div>
 
     <div class="drink-display">
       <button class="drunkButton">Get your drink options</button>
-      <h2 class="drink-options">Your Pairings</h2>
+      <h2 class="drink-options">Your drink pairings: </h2>
     </div>
     <section class="drink-wrapper">
       <div class="modal" id="drinkModal">

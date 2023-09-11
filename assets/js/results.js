@@ -4,6 +4,8 @@ var cocktailByLetterEndpoint =
   "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=";
 var drinkButton = document.querySelector(".drunkButton");
 var apiKey = "875ec0f5dd7c483c223ff8cc9a55ef3e";
+var favoriteButton = document.querySelector(".favorite-button");
+
 function readFromLocalStorage() {
   var storedMovie = localStorage.getItem("selectedMovie");
   if (storedMovie) {
@@ -21,6 +23,7 @@ function printFromLocal() {
     var movieDate = document.createElement("p");
     var movieOverviewEl = document.createElement("p");
     var movieImageEl = document.createElement("img");
+    movieImageEl.classList.add("movieImage");
     movieTitleEl.textContent = movie.title;
     movieOverviewEl.textContent = movie.overview;
     movieDate.textContent =
@@ -32,16 +35,22 @@ function printFromLocal() {
     randomMovieDiv.appendChild(movieImageEl);
     randomMovieDiv.appendChild(movieOverviewEl);
   } else {
-    console.log("No movie found in localStorage");
+    // console.log("No movie found in localStorage");
   }
 }
 function fetchAndDisplayRandomDrinks(letter) {
+  //   var drinkDisplay = document.querySelector(".drink-wrapper");
+  // drinkDisplay.innerHTML = "";
+
+  // var drinksContainer = document.createElement("div");
+  // drinksContainer.innerHTML = '';
+
   fetch(cocktailByLetterEndpoint + letter)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log("DATA:", data);
+      // console.log("DATA:", data);
 
       var alcoholicDrinks = [];
       var nonAlcoholicDrinks = [];
@@ -55,8 +64,7 @@ function fetchAndDisplayRandomDrinks(letter) {
           }
         });
       }
-      // var drinkDisplay = document.querySelector(".drink-wrapper");
-      // drinkDisplay.innerHTML = "";
+
       // Display an alcoholic drink
       if (alcoholicDrinks.length > 0) {
         var randomAlcoholicIndex = Math.floor(
@@ -86,8 +94,6 @@ function fetchAndDisplayRandomDrinks(letter) {
     .catch(function (error) {
       console.error("Error fetching data: " + error);
     });
-  // var drinkDisplay = document.querySelector(".drink-wrapper");
-  // drinkDisplay.innerHTML = "";
 }
 drinkButton.addEventListener("click", function () {
   var movie = readFromLocalStorage();
@@ -95,14 +101,15 @@ drinkButton.addEventListener("click", function () {
   fetchAndDisplayRandomDrinks(firstLetter);
 });
 
+var drinkDisplay = document.querySelector(".drink-wrapper");
+
 function displayDrink(drink, category) {
   var drinksContainer = document.createElement("div");
-
   drinksContainer.className = "drinks-container";
-
   var drinksTitle = document.createElement("h3");
   drinksTitle.textContent = category;
   drinksContainer.appendChild(drinksTitle);
+
   var drinkElement = document.createElement("div");
   drinkElement.className = "drink";
   var drinkName = document.createElement("h4");
@@ -110,13 +117,14 @@ function displayDrink(drink, category) {
   var drinkImage = document.createElement("img");
   drinkImage.src = drink.strDrinkThumb;
   drinkImage.alt = drink.strDrink;
+
   drinkImage.addEventListener("click", function () {
     openModal(drink);
   });
+
   drinkElement.appendChild(drinkName);
   drinkElement.appendChild(drinkImage);
   drinksContainer.appendChild(drinkElement);
-  var drinkDisplay = document.querySelector(".drink-wrapper");
   drinkDisplay.appendChild(drinksContainer);
 }
 
@@ -124,24 +132,7 @@ printFromLocal();
 drinkButton.addEventListener("click", function () {
   var movie = readFromLocalStorage();
   var firstLetter = movie.title.charAt(0).toLowerCase();
-  // fetchAndDisplayRandomDrink("Non_Alcoholic", firstLetter);
-  // fetchAndDisplayRandomDrink("Alcoholic", firstLetter);
 });
-// var newMovieButton = document.querySelector(".newMovie");
-// function newMovie() {
-//   fetch(
-//     `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${selectedGenre}`
-//   )
-//     .then((response) => response.json())
-//     .then((data) => {
-//       var randomIndex = Math.floor(Math.random() * data.results.length);
-//       var selectedMovie = data.results[randomIndex];
-//       localStorage.setItem("selectedMovie", JSON.stringify(selectedMovie));
-//     })
-//     .catch((error) => console.error("Error fetching movies:", error));
-//   readFromLocalStorage();
-//   printFromLocal();
-// }
 
 function getMovieId() {
   var movie = readFromLocalStorage();
@@ -194,10 +185,23 @@ function displayMovieDetails(movieDetails) {
     "Movie Rating by voters: " +
     movieDetails.vote_average.toFixed(1) +
     " out of 10";
-  console.log(ratingEl);
+  // console.log(ratingEl);
   ratingEl.setAttribute("style", " font-style:italic;");
-  ratingElPlacement = randomMovieDiv.children[3];
+  ratingElPlacement = randomMovieDiv.children[4];
   randomMovieDiv.insertBefore(ratingEl, ratingElPlacement);
+
+  var listEl = document.createElement("ul");
+  listEl.classList.add("genreList");
+  var movieGenres = movieDetails.genres;
+  for (var i = 0; i < movieGenres.length; i++) {
+    var genreEl = document.createElement("li");
+    genreEl.textContent = movieDetails.genres[i].name;
+    listEl.appendChild(genreEl);
+  }
+
+  genrePlacement = randomMovieDiv.children[3];
+  randomMovieDiv.insertBefore(listEl, genrePlacement);
+  // console.log(listEl);
 }
 
 init();
@@ -225,23 +229,23 @@ function closeModal() {
   modal.classList.remove("is-active");
 }
 
-// function newMovieDisplay() {
-//   var selectedGenreValue = localStorage.getItem("selectedGenreValue");
-//   console.log(selectedGenreValue);
-//   fetch(
-//     `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${selectedGenreValue}`
-//   )
-//     .then((response) => response.json())
-//     .then((data) => {
-//       var randomIndex = Math.floor(Math.random() * data.results.length);
-//       var selectedMovie = data.results[randomIndex];
-//       localStorage.setItem("selectedMovie", JSON.stringify(selectedMovie));
-//     })
-//     .catch((error) => console.error("Error fetching movies:", error));
-//   var randomMovie = document.getElementById("randomMovie");
-//   randomMovie.innerHTML = "";
-//   readFromLocalStorage();
-//   printFromLocal();
-// }
+function saveToFavorites() {
+  var imageSrc = document.querySelector(".movieImage").getAttribute("src");
+  var savedPosters = JSON.parse(localStorage.getItem("savedPosters")) || [];
 
-// newMovieButton.addEventListener("click", newMovieDisplay);
+  savedPosters.push(imageSrc);
+  localStorage.setItem("savedPosters", JSON.stringify(savedPosters));
+
+  displayMessage();
+}
+
+favoriteButton.addEventListener("click", saveToFavorites);
+
+function displayMessage() {
+  var savedItemId = document.querySelector(".displayFavoriteMessage");
+  savedItemId.textContent = " Your favorite movie was saved to the homepage!";
+
+  setTimeout(function () {
+    savedItemId.textContent = "";
+  }, 5000);
+}
